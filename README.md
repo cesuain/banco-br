@@ -87,7 +87,7 @@ npx sequelize-cli db:seed:all
 npm run dev
 ```
 
-## 🧪 Como configurar o ambiente de teste
+## 🧪 Como configurar testes no Insomnia
 
 1 - Instalar o [Insomnia](https://insomnia.rest/download)
 
