@@ -1,4 +1,5 @@
 const database = require("../infra/models");
+const modernAsync = require("modern-async");
 
 class ContasController {
   static async criarConta(req, res) {
@@ -14,6 +15,12 @@ class ContasController {
         tipoConta,
         ...configPrimeiraConta,
       });
+
+      const pessoa = await database.Pessoas.findOne({
+        where: { id: Number(contaCriada.idPessoa) },
+      });
+
+      contaCriada.idPessoa = pessoa;
       return res.status(200).json(contaCriada);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -23,6 +30,13 @@ class ContasController {
   static async obterTodasAsContas(req, res) {
     try {
       const todasAsContas = await database.Contas.findAll();
+      await modernAsync.map(todasAsContas, async (conta) => {
+        const pessoa = await database.Pessoas.findOne({
+          where: { id: conta.idPessoa },
+        });
+        conta.idPessoa = pessoa;
+        return conta;
+      });
       return res.status(200).json(todasAsContas);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -35,6 +49,12 @@ class ContasController {
       const conta = await database.Contas.findOne({
         where: { id: Number(id) },
       });
+      const pessoa = await database.Pessoas.findOne({
+        where: { id: Number(conta.idPessoa) },
+      });
+
+      conta.idPessoa = pessoa;
+
       return res.status(200).json(conta);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -51,6 +71,13 @@ class ContasController {
       const contaAtualizada = await database.Contas.findOne({
         where: { id: Number(id) },
       });
+
+      const pessoa = await database.Pessoas.findOne({
+        where: { id: Number(contaAtualizada.idPessoa) },
+      });
+
+      contaAtualizada.idPessoa = pessoa;
+
       return res.status(200).json(contaAtualizada);
     } catch (error) {
       return res.status(500).json(error.message);

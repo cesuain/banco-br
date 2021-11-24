@@ -15,6 +15,11 @@ router
     TransacoesValidation.validarSaque,
     TransacoesController.sacar
   )
+  .post(
+    "/transacoes/:idContaSaida/transferir/:idContaEntrada",
+    TransacoesValidation.validarTransferencia,
+    TransacoesController.transferir
+  )
   .get("/transacoes/", TransacoesController.obterTodasAsTransacoes)
   .get("/transacoes/buscar/:id", TransacoesController.obterTransacaoPorId)
   .get(
