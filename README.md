@@ -1,6 +1,6 @@
-# 🏦 Dock: Gerenciador de contas
+# 🏦 Banco BR: Gerenciador de contas
 
-O sistema foi criado com o objetivo de auxiliar todos os clientes da Dock com o gerenciamento de contas.
+O sistema foi criado com o objetivo de auxiliar todos os clientes do Banco BR com o gerenciamento de contas.
 
 ## 📍 Rotas
 
